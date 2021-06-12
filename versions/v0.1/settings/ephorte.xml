@@ -1,7 +1,7 @@
 <xml>
   <metadata>
     <systemname>ephorte</systemname>
-    <tablename>dokversjon</tablename>
+    <tablename>DOKVERSJON</tablename>
     <sql>
     	<type>NCHAR VARYING(255)</type>
 	<typeOriginal>NVARCHAR(255)</typeOriginal>

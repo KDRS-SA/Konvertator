@@ -83,14 +83,13 @@ converted_files = {}
 with open(f'{results_dir}convert_output.csv', newline='\n') as convert_csv:
     convert_csv_reader = csv.reader(convert_csv, delimiter=',', quotechar='"')
     for row in convert_csv_reader:
-        key = pathlib.Path(row[0])
-        converted_files[key] = {}
-        converted_files[key]['old'] = key
-        converted_files[key]['new'] = row[1]
-        converted_files[key]['pronom'] = row[2]
-        converted_files[key]['conv'] = row[3]
-        converted_files[key]['siard'] = 'n'
-        converted_files[key]['empty'] = row[4]
+        converted_files[row[0]] = {}
+        converted_files[row[0]]['old'] = row[0]
+        converted_files[row[0]]['new'] = row[1]
+        converted_files[row[0]]['pronom'] = row[2]
+        converted_files[row[0]]['conv'] = row[3]
+        converted_files[row[0]]['siard'] = 'n'
+        converted_files[row[0]]['empty'] = row[4]
 
 failed_ref = []
 
@@ -105,15 +104,14 @@ for x in root.xpath('siard:row', namespaces=namespace):
                 file_name += x.xpath(f"siard:{node.attrib['col']}", namespaces=namespace)[0].text
         if 'text' in node.attrib:
             file_name += node.attrib['text']
-    file_name = pathlib.Path(file_name.replace('\\u005c', '/').strip("/"))
+    file_name = pathlib.Path(file_name.replace('\\u005c', '/'))
     file_path = pathlib.Path(document_dir / file_name)
-
-    if file_path in converted_files:
-        converted_files[file_path]['siard'] = 'y'
-        x.append(add_node(converted_files[file_path]['new'], metadata_col))
+    if file_path.as_posix() in converted_files:
+        converted_files[file_path.as_posix()]['siard'] = 'y'
+        x.append(add_node(converted_files[file_path.as_posix()]['new'], metadata_col))
     else:
         failed_ref.append(file_path.as_posix())
-        logging(f"{file_path} not found in SIARD-database")
+        logging(f"{file_path.as_posix()} not found in SIARD-database")
 
 ## Skriver til SIARD-tabellen
 root.write(temp_dir+ siard_table, pretty_print=True, encoding='utf-8')

@@ -12,7 +12,7 @@ from datetime import datetime
 def siegfriedtest(sieg_filename):
     global pronom_stats
     siegfried_output = []
-    siegfried_list = subprocess.check_output(["C:/prog/siegfried_v1.8.0/win64/sf", "-nr", "-csv", sieg_filename]).splitlines()
+    siegfried_list = subprocess.check_output(["/opt/siegfried/bin/sf", "-nr", "-csv", sieg_filename]).splitlines()
     for file in siegfried_list[1:]:
         siegfried_check = True
         try:
@@ -171,7 +171,7 @@ for path in pathlib.Path(document_dir).rglob('*'):
         total_number += 1
 for path in pathlib.Path(document_dir).rglob('*'):
     if path.is_dir() is True:
-        filliste.extend(siegfriedtest(str(path)))
+        filliste.extend(siegfriedtest(path))
         scanned_number += len(filliste)
         print(f"{scanned_number} / {total_number} {ascii(path.as_posix())}")
     if filliste != []:
