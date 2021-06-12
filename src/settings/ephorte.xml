@@ -1,0 +1,13 @@
+<xml>
+  <metadata>
+    <systemname>ephorte</systemname>
+    <tablename>DOKVERSJON</tablename>
+    <sql>
+    	<type>NCHAR VARYING(255)</type>
+	<typeOriginal>NVARCHAR(255)</typeOriginal>
+    </sql>
+  </metadata>
+  <path>
+    <node col="c11"/>
+  </path>
+</xml>

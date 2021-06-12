@@ -1,0 +1,33 @@
+Ting dere må laste ned i forkant:
+
+* libreoffice (med alle pakkene)
+  * Scriptet kaller på det i converter.py, linje 123
+  * Standardinnstillingen for PDF-konvertering i libreoffice er standard-pdf. For å forandre dette må dere legge til følgende linje i ~/.config/libreoffice/4/user/registrymodifications.xcu:
+    <item oor:path="/org.openoffice.Office.Common/Filter/PDF/Export"><prop oor:name="SelectPdfVersion" oor:op="fuse"><value>1</value></prop></item>
+  * Hvis registrymodifications ikke eksisterer må dere bare kjøre libreoffice en gang som headless for å få den til å sette opp innstilingene:
+    * libreoffice --headless
+
+* python3 pip:
+  apt-install python3-pip
+  pip3 install pendulum
+  pip3 install extract_msg
+
+  De andre pythonpakkene skal være del av standardpakken.
+
+* siegfried:
+  https://www.itforarchivists.com/siegfried/
+  scriptet (pronom_check.py linje 15) tar utgangspunkt i at sf er installert i '/opt/siegfried/bin/' hvis dere installerer det et annet sted må denne oppdateres.
+  - før første gangs kjøring må dere kjøre 'sf --update' og det bør gjøres nå og da for å sikre oppdatert signaturfil.
+
+
+Selve kjøringen av scriptet:
+Scriptet tar utgangspunkt at man står i rot-nivået av contentmappen (i samme dir som siard-filen)
+(rediger pathene til scriptet i forkant, men dette er hvordan vi har satt det opp):
+Den med nohup er satt opp for at vi kan logge inn på serveren med ssh og bare la scriptet kjøre uten at vi trenger å være innlogget. Hvis dere kjører det på en lokal maskin trenger dere ikke nohup og alt etter '>>'
+
+
+python3 /data/work/pronom_check.py
+nohup python3 /data/work/converter.py >> results/console.log &
+python3 /data/work/update_siard.py
+
+resulterende logg-filer havner i results-mappen og det utpakkede siarduttrekket havner i temp-mappen (vi har slettet denne mappen før vi går videre). Siardfilen blir hetene det samme som input-siardfilen bare '_conv.siard'

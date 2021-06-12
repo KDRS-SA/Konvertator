@@ -1,0 +1,18 @@
+<xml>
+  <metadata>
+    <systemname>doculive</systemname>
+    <tablename>edoktab</tablename>
+    <sql>
+    	<type>VARCHAR(255)</type>
+	<typeOriginal>VARCHAR(255)</typeOriginal>
+    </sql>    
+</metadata>
+  <path>
+    <node col="c26"/>
+    <node text="/"/>
+    <node col="c27"/>
+    <node col="c28"/>
+    <node text="."/>
+    <node col="c29"/>
+  </path>
+</xml>
